@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table cellpading='3' width='1200'>
+                    <tr>
+                        <th>Image</th>
+                        <th>Fullname</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="thumb"><img src="{{request.user.image.url}}" alt="" width="50px"></td>
+                        <td>{{request.user.get_fullname}}</td>
+                        <td>{{request.user.email}}</td>
+                        <td><h4>{{request.user.phone}}</h4></td>
+                    </tr>
+                   
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock %}
