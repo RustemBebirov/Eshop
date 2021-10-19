@@ -22,7 +22,7 @@ class ContactFormView(FormView):
     form_class = ContactForm
     
     def get_success_url(self):
-        messages.add_message(self.request, messages.INFO, 'form submission success')
+        messages.add_message(self.request, messages.INFO, 'form submission success..')
         return reverse('home:index')
 
     def form_valid(self, form):
