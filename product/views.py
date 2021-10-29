@@ -5,6 +5,8 @@ from .forms import SearchForm
 from django.contrib import messages
 import json
 
+
+
 def category_product(request,id,slug):
     category = Category.objects.all()
     products = Product.objects.filter(category_id=id).all()
