@@ -7,7 +7,7 @@ import json
 
 
 
-def category_product(request,id,slug):
+def category_product(request,id):
     category = Category.objects.all()
     products = Product.objects.filter(category_id=id).all()
     context = {
