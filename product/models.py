@@ -17,7 +17,7 @@ class Category(MPTTModel):
     image = models.ImageField(blank=True,upload_to='product_images/')
     status = models.CharField(max_length=10,choices=STATUS)
     slug = models.SlugField(null=False, unique=True)
-    parent = TreeForeignKey('self',blank=True,null=True,related_name='childre',on_delete=models.CASCADE)
+    parent = TreeForeignKey('self',blank=True,null=True,related_name='children',on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -47,6 +47,7 @@ class Product(models.Model):
     image = models.ImageField(blank=True,upload_to='product_images/')
     status = models.CharField(max_length=10,choices=STATUS)
     price = models.FloatField()
+    sale = models.FloatField()
     amount = models.IntegerField()
     detail = RichTextUploadingField(blank=True)
     slug = models.SlugField(null=False, unique=True)
@@ -61,7 +62,7 @@ class Product(models.Model):
         return self.title
 
 class Images(models.Model):
-    product =models.ForeignKey(Product,on_delete=models.CASCADE)
+    product =models.ForeignKey(Product,on_delete=models.CASCADE,related_name='product_images')
     title = models.CharField(max_length=127,blank=True,null=True)
     image = models.ImageField(blank=True,upload_to='images/')
 

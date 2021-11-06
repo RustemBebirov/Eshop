@@ -1,5 +1,5 @@
 
-from product.models import Category
+from product.models import Category, Product
 from django.shortcuts import render
 from .models import Settings
 from .forms import ContactForm
@@ -9,11 +9,13 @@ from django.urls import reverse
 
 def index(request):
     # settings = Settings.objects.get(id=1)
+    products = Product.objects.all()
     category = Category.objects.all()
     context= {
         # 'settings':settings,
         'page':'home',
-        'category':category
+        'category':category,
+        'products':products
     }
     return render(request,'index.html',context)
 
