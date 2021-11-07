@@ -7,6 +7,7 @@ from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.urls import reverse
 
+
 def index(request):
     # settings = Settings.objects.get(id=1)
     products = Product.objects.all()
@@ -15,7 +16,8 @@ def index(request):
         # 'settings':settings,
         'page':'home',
         'category':category,
-        'products':products
+        'products':products,
+        
     }
     return render(request,'index.html',context)
 

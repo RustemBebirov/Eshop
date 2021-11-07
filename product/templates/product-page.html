@@ -47,12 +47,14 @@
 							
 
 							<div class="product-btns">
-								<div class="qty-input">
+								<form action="/order/addtocart/{{product.id}}" method="POST">
+								{% csrf_token %}
+									<div class="qty-input">
 									<span class="text-uppercase">QTY: </span>
-									<input class="input" type="number">
+									<input name='qty' class="input" type="number" min='0' max="{{product.amount}}" value="1">
 								</div>
 								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-								
+								</form>
 							</div>
 						</div>
 					</div>

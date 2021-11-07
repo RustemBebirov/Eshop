@@ -14,7 +14,7 @@
                 {% for product in products %}
                 <tr>
                     <td><img src="{{product.image.url}}" alt="" width="150px"></td>
-                    <td>{{product.title}}</td>
+                    <td><a href="{{product.get_absolute_url}}">{{product.title}}</a></td>
                     <td>{{product.category}}</td>
                     <td><h4>${{product.price}}</h4></td>
                 </tr>

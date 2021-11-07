@@ -26,7 +26,8 @@ urlpatterns = [
     path('ckeditor',include('ckeditor_uploader.urls')),
     path('product/',include('product.urls',namespace='product')),
     path('',include('home.urls',namespace='home')),
-    path('user/',include('users.urls'))
+    path('user/',include('users.urls')),
+    path('order/',include('order.urls')),
 
 ]
 

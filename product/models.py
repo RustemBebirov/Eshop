@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.models import MPTTModel, TreeForeignKey
-
+from django.urls import reverse
 
 
 class Category(MPTTModel):
@@ -60,6 +60,10 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('product:product_detail',args=([self.slug]))
+    
 
 class Images(models.Model):
     product =models.ForeignKey(Product,on_delete=models.CASCADE,related_name='product_images')
