@@ -118,7 +118,7 @@
                         </div>
                         
                         <div class="sinlge-bar shopping">
-                            <a href="{% url 'order:shopcart' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
+                            <a href="{% url 'order:shopcart' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{request.session.cart_items}}</span></a>
                             
                         </div>
                     </div>

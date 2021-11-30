@@ -9,11 +9,10 @@ from django.urls import reverse_lazy
 from .models import ShopCart
 from .forms import ShopCartForm
 
-def index(request):
-    return HttpResponse('salam')
 
 
-@login_required(login_url='/login')
+
+@login_required(login_url='/user/login')
 def shopcart(request):
     cart_products = ShopCart.objects.filter(user=request.user)
     total = 0
@@ -28,11 +27,12 @@ def shopcart(request):
 
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/user/login')
 def addtocart(request,id):
     current_user= request.user
+    print(current_user)
     url = request.META.get('HTTP_REFERER')
-    check = ShopCart.objects.filter(product=id).first()
+    check = ShopCart.objects.filter(product=id,user=current_user).first()
 
     if request.method == 'POST':
         form = ShopCartForm(request.POST)
@@ -47,15 +47,15 @@ def addtocart(request,id):
                 data.product_id = id
                 data.qty = form.cleaned_data['qty']
                 data.save()
-                messages.success(request,'Product add to cart')
 
-            return HttpResponseRedirect(url)
+        request.session['cart_items']= ShopCart.objects.filter(user=current_user).count()
+        messages.success(request,'Product add to cart')
+        return HttpResponseRedirect(url)
     if id:
         if check:
             check.qty += 1
             check.save()
         else:
-
 
             data = ShopCart()
             data.user_id = current_user.id
@@ -66,13 +66,14 @@ def addtocart(request,id):
         messages.success(request,'Product add to cart')
 
         return HttpResponseRedirect(url)
-
+    request.session['cart_items']= ShopCart.objects.filter(user=current_user).count()
     messages.warning(request,'product not add')
     return HttpResponseRedirect(url)
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/user/login')
 def deletetocart(request,id):
     ShopCart.objects.get(id=id).delete()
+    request.session['cart_items']= ShopCart.objects.filter(user=request.user).count()
     messages.success(request,'Product successfuly delete')
     return redirect(reverse_lazy('order:shopcart'))

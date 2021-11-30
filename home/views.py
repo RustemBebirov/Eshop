@@ -1,4 +1,5 @@
 
+from order.models import ShopCart
 from product.models import Category, Product
 from django.shortcuts import render
 from .models import Settings
@@ -12,6 +13,8 @@ def index(request):
     # settings = Settings.objects.get(id=1)
     products = Product.objects.all()
     category = Category.objects.all()
+    if request.user.is_authenticated:
+        request.session['cart_items']= ShopCart.objects.filter(user=request.user).count()
     context= {
         # 'settings':settings,
         'page':'home',

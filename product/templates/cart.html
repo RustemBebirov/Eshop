@@ -27,13 +27,14 @@
 								</td>
 								<td class="price" data-title="Price"><span>${{product.price}} </span></td>
 								<td class="qty" data-title="Qty"><!-- Input Order -->
+									<form action="" method="post">
 									<div class="input-group">
 										<div class="button minus">
 											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
 												<i class="ti-minus"></i>
 											</button>
 										</div>
-										<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="{{product.qty}}">
+										<input type="text" name="qty" class="input-number"  data-min="1" data-max="{{product.product.amount}}" value="{{product.qty}}">
 										<div class="button plus">
 											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
 												<i class="ti-plus"></i>
@@ -41,6 +42,7 @@
 										</div>
 									</div>
 									<!--/ End Input Order -->
+								</form>
 								</td>
 								<td class="total-amount" data-title="Total"><span>${{product.amount}}</span></td>
 								<td class="action" data-title="Remove"><a href="{% url 'order:deletecart' product.id %}"><i class="ti-trash remove-icon"></i></a></td>
@@ -72,7 +74,7 @@
 									<ul>
 										<li>Cart Subtotal<span>${{total}}</span></li>
 										<li>Shipping<span>Free</span></li>
-										<li>You Save<span>$20.00</span></li>
+										
 										<li class="last">You Pay<span>${{total}}</span></li>
 									</ul>
 									<div class="button5">
