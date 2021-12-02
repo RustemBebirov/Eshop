@@ -27,22 +27,14 @@
 								</td>
 								<td class="price" data-title="Price"><span>${{product.price}} </span></td>
 								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<form action="" method="post">
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-												<i class="ti-minus"></i>
-											</button>
+									<form action="/order/addtocart/{{product.id}}" method="POST">
+										{% csrf_token %}
+											<div class="qty-input">
+											<span class="text-uppercase">QTY: </span>
+											<input name='qty' class="input" type="number" min='1' max="{{product.product.amount}}" value="{{product.qty}}">
 										</div>
-										<input type="text" name="qty" class="input-number"  data-min="1" data-max="{{product.product.amount}}" value="{{product.qty}}">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-									<!--/ End Input Order -->
-								</form>
+										
+										</form>
 								</td>
 								<td class="total-amount" data-title="Total"><span>${{product.amount}}</span></td>
 								<td class="action" data-title="Remove"><a href="{% url 'order:deletecart' product.id %}"><i class="ti-trash remove-icon"></i></a></td>

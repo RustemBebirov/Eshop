@@ -58,7 +58,7 @@
                             <li><i class="ti-location-pin"></i> Store location</li>
                             
                             {% if user.is_authenticated %}
-                            <li><i class="ti-user"></i> <a href="#">{{user.get_full_name}}</a></li>
+                            <li><i class="ti-user"></i> <a href="#">{% if user.get_full_name %}{{user.get_full_name}}{% else%}{{user.username}}{% endif %}</a></li>
                             <li><i class="ti-power-off"></i><a href="{% url 'logout' %}">Logout</a></li>
                             {% else %}
                             

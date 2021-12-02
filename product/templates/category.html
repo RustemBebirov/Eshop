@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<!-- Product Style -->
+	<section class="product-area shop-sidebar shop section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-4 col-12">
+					<div class="shop-sidebar">
+							<!-- Single Widget -->
+							<div class="single-widget category">
+								<h3 class="title">Categories</h3>
+								<ul class="categor-list">
+									{% load mptt_tags %}
+									{% recursetree category %}
+                                    <li>
+                                        <a  href="{% url 'product:category_products' node.id node.slug %}" >{{ node.title }} <i {% if not node.is_leaf_node %} class="fa fa-angle-right" {% endif %}  aria-hidden="true"  ></i></a>
+                                        
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="sub-category">
+                                                
+                                                <li>{{children}}</li>
+                                                
+                                                
+                                            </ul>
+                                            {% endif %}
+                                       
+                                    </li>
+                                    {% endrecursetree %}
+                                
+								</ul>
+							</div>
+							<!--/ End Single Widget -->
+							
+							
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-8 col-12">
+					<div class="row">
+						<div class="col-12">
+							<!-- Shop Top -->
+							<div class="shop-top">
+								<div class="shop-shorter">
+									<form method="POST" id="filter2" >
+										{% csrf_token %}
+									<div class="single-shorter">
+										<label>Show :</label>
+										<select  name="page" onchange="myFunction2()">
+											
+											<option {% if page == 1 %} selected {% endif %} >1</option>
+											<option {% if page == 2 %} selected {% endif %} >2</option>
+											<option {% if page == 3 %} selected {% endif %} >3</option>
+											<option {% if page == 4 %} selected {% endif %} >4</option>
+										</select>
+									</div>
+									<div class="single-shorter">
+										<label>Sort By :</label>
+										<select  name="filter" onchange="myFunction2()">
+											<option {% if filters == 'title' %} selected {% endif %} value="title">Title A-Z</option>
+											<option  {% if filters == '-title' %} selected {% endif %} value="-title" >Title Z-A</option>
+											<option {% if filters == 'price' %} selected {% endif %} value="price">Price min-max</option>
+											<option  {% if filters == '-price' %} selected {% endif %} value="-price">Price max-min</option>
+											
+										</select>
+									</div>
+									<div class="single-shorter">
+										<label>Sort By :</label>
+										<select  name="price" onchange="myFunction2()">
+											<option {% if filters == 'title' %} selected {% endif %} value="title">Title A-Z</option>
+											<option  {% if filters == '-title' %} selected {% endif %} value="-title" >Title Z-A</option>
+											<option {% if filters == 'price' %} selected {% endif %} value="price">Price min-max</option>
+											<option  {% if filters == '-price' %} selected {% endif %} value="-price">Price max-min</option>
+											
+										</select>
+									</div>
+								</form>
+								</div>
+								
+							</div>
+							<!--/ End Shop Top -->
+						</div>
+					</div>
+					<div class="row">
+						{% for product in products %}
+						<div class="col-lg-4 col-md-6 col-12">
+							<div class="single-product">
+								<div class="product-img">
+									<a href="product-details.html">
+										<img class="default-img" src="{{product.image.url}}" alt="#">
+										<img class="hover-img" src="{{product.image.url}}" alt="#">
+									</a>
+									<div class="button-head">
+										
+										<div class="product-action-2">
+											<a title="Add to cart" href="{% url 'order:addtocart' product.id %}">Add to cart</a>
+										</div>
+									</div>
+								</div>
+								<div class="product-content">
+									<h3><a href="product-details.html">{{product.title}}</a></h3>
+									<div class="product-price">
+										<span>${{product.price}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/ End Product Style 1  -->	
+
+		<script>
+		function myFunction(e) {
+			
+			var form = document.getElementById("filter1")
+			form.submit()
+		  
+		  
+		}
+		function myFunction2(e) {
+			
+			var form = document.getElementById("filter2")
+			form.submit()
+		  
+		  
+		}
+		</script>
+
+	
+
+{% endblock %}

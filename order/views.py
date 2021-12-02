@@ -14,10 +14,15 @@ from .forms import ShopCartForm
 
 @login_required(login_url='/user/login')
 def shopcart(request):
+
     cart_products = ShopCart.objects.filter(user=request.user)
     total = 0
+    
     for product in cart_products:
         total += product.product.price * product.qty
+        print(product.product.amount)
+    
+
     context = {
         'cart_products':cart_products,
         'total':total,
@@ -30,7 +35,6 @@ def shopcart(request):
 @login_required(login_url='/user/login')
 def addtocart(request,id):
     current_user= request.user
-    print(current_user)
     url = request.META.get('HTTP_REFERER')
     check = ShopCart.objects.filter(product=id,user=current_user).first()
 
