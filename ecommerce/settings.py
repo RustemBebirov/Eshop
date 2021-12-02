@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+
+LOGIN_URL = ('users.views.login')
 #deneme
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -223,3 +225,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587 
 EMAIL_HOST_USER = 'rustembebirov96@gmail.com' 
 EMAIL_HOST_PASSWORD = 'gtsuwonnqxbrcamr'
+
+

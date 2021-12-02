@@ -7,11 +7,12 @@ from django.utils.encoding import force_text
 from users.tasks import send_confirmation_mail 
 from users.tools.token import account_activation_token 
 from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.decorators import login_required
 
 
 User = get_user_model()
 
-
+@login_required(login_url="{% url 'login' %}")
 def user_profile(request):
     form = UserProfileForm(instance=request.user)
     if request.method == 'POST':

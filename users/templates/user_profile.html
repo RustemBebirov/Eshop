@@ -19,7 +19,10 @@
                         <td>{{request.user.get_full_name}}</td>
                         <td>{{request.user.email}}</td>
                         <td>{{request.user.phone}}</td>
-                        <td><a href="{% url 'password_reset' %}">Change Password</a></td>
+                        <td><div class="alert alert-danger" role="alert">
+                            <a href="{% url 'password_reset' %}">Change Password</a>
+                          </div>
+                            </td>
                     </tr>
                    
                 </table>
