@@ -2,17 +2,28 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import get_user_model, authenticate, login as django_login , logout as django_logout
 from django.contrib import messages
 from django.urls import reverse_lazy 
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, UserProfileForm
 from django.utils.encoding import force_text 
 from users.tasks import send_confirmation_mail 
 from users.tools.token import account_activation_token 
 from django.utils.http import urlsafe_base64_decode
 
+
 User = get_user_model()
 
 
 def user_profile(request):
-    return render(request,'user_profile.html')
+    form = UserProfileForm(instance=request.user)
+    if request.method == 'POST':
+            form = UserProfileForm(request.POST,request.FILES, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect(reverse_lazy('profile'))
+
+    context = {
+        'form':form
+    }
+    return render(request,'user_profile.html',context)
 
 
 def logout(request):

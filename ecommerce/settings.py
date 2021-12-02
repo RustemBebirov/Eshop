@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'mptt',
     'crispy_forms',
+    'django_extensions',
 ]
 
 AUTH_USER_MODEL ='users.User'

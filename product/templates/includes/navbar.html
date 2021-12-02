@@ -1,24 +1,6 @@
 
 {% load static %}
 {% load mptt_tags %}
-<script>
-
-    $(function() {
-      $("#search").autocomplete({
-        source: "{% url 'product:product_autocomplete' %}",
-        select: function (event, ui) { //item selected
-          AutoCompleteSelectHandler(event, ui)
-        },
-        minLength: 2,
-      });
-    });
-  
-    function AutoCompleteSelectHandler(event, ui)
-    {
-      var selectedObj = ui.item;
-    }
-  
-  </script>
 
 
 <!-- Preloader -->
@@ -58,7 +40,7 @@
                             <li><i class="ti-location-pin"></i> Store location</li>
                             
                             {% if user.is_authenticated %}
-                            <li><i class="ti-user"></i> <a href="#">{% if user.get_full_name %}{{user.get_full_name}}{% else%}{{user.username}}{% endif %}</a></li>
+                            <li><i class="ti-user"></i> <a href="{% url 'profile' %}">{% if user.get_full_name %}{{user.get_full_name}}{% else%}{{user.username}}{% endif %}</a></li>
                             <li><i class="ti-power-off"></i><a href="{% url 'logout' %}">Logout</a></li>
                             {% else %}
                             
@@ -135,7 +117,7 @@
                     {% if category %}
                     <div class="col-lg-3">
                        
-                        {% if page %}
+                        {% if page == 'home' %}
                         <div class="all-category">
                             {% else %}
                             <div class="all-category" style="display: none;">
@@ -144,7 +126,7 @@
                             <ul class="main-category">
                                 {% recursetree category %}
                                     <li>
-                                        <a  href="product/category/{{node.id}}/{{node.slug}}" >{{ node.title }} <i {% if not node.is_leaf_node %} class="fa fa-angle-right" {% endif %}  aria-hidden="true"  ></i></a>
+                                        <a  href="{% url 'product:category_products' node.id node.slug %}" >{{ node.title }} <i {% if not node.is_leaf_node %} class="fa fa-angle-right" {% endif %}  aria-hidden="true"  ></i></a>
                                         
                                         {% if not node.is_leaf_node %}
                                             <ul class="sub-category">
@@ -195,3 +177,21 @@
     <!--/ End Header Inner -->
 </header>
 <!--/ End Header -->
+<script>
+
+    $(function() {
+      $("#search").autocomplete({
+        source: "{% url 'product:product_autocomplete' %}",
+        select: function (event, ui) { //item selected
+          AutoCompleteSelectHandler(event, ui)
+        },
+        minLength: 2,
+      });
+    });
+  
+    function AutoCompleteSelectHandler(event, ui)
+    {
+      var selectedObj = ui.item;
+    }
+  
+</script>

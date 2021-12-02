@@ -16,8 +16,7 @@ def product_detail(request,slug):
     return render(request,'product-page.html',context)
 
 def filter(request):
-    category = Category.objects.all()
-    
+    category = Category.objects.all()   
     page = 1
     filters = 'title'
     products = Product.objects.order_by(filters)[:page]

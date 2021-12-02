@@ -3,9 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-class UserProfile(forms.ModelForm):
-    model = User
-    fields = ("phone",'country','city','address','image')
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+
+        model = User
+        fields = ('first_name','last_name',"phone",'country','city','address','image')
 
 
 

@@ -42,7 +42,7 @@
 							<!-- Shop Top -->
 							<div class="shop-top">
 								<div class="shop-shorter">
-									<form method="POST" id="filter2" >
+									<form action="{% url 'product:product_filter' %}" method="POST" id="filter2" >
 										{% csrf_token %}
 									<div class="single-shorter">
 										<label>Show :</label>
@@ -64,16 +64,7 @@
 											
 										</select>
 									</div>
-									<div class="single-shorter">
-										<label>Sort By :</label>
-										<select  name="price" onchange="myFunction2()">
-											<option {% if filters == 'title' %} selected {% endif %} value="title">Title A-Z</option>
-											<option  {% if filters == '-title' %} selected {% endif %} value="-title" >Title Z-A</option>
-											<option {% if filters == 'price' %} selected {% endif %} value="price">Price min-max</option>
-											<option  {% if filters == '-price' %} selected {% endif %} value="-price">Price max-min</option>
-											
-										</select>
-									</div>
+									
 								</form>
 								</div>
 								
